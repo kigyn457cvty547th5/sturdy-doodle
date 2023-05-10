@@ -1,0 +1,79 @@
+<html>
+<head>
+    <title>
+        📋to do list.com
+    </title>
+    <style>
+        body{
+            background-image: linear-gradient(45deg, #5900ff,#00ffae);
+        }
+        #app{
+            padding:40px;
+        }  
+        #header{
+            padding-bottom: 20px;
+        }
+        .completed {
+            text-decoration: line-through;
+        }
+    </style>
+    <script src="vuejs.js"></script>
+    <link rel="stylesheet" href="bootstrap.css">
+
+</head>
+
+<body>
+    <div class="container">
+
+    
+    
+    <div id="app">
+    <h1 class="display-4" id="header">
+        
+        <center>🕜To Do List🕜</center>
+    
+    </h1>
+    <div class="input-group mb-4">
+    <input v-model="newTask" @keyup.enter="addTask"class= "form-control input-lg" placeholder="Add new task"> &nbsp;
+    <a class="btn btn-primary btn-lg" @click="addTask" href="#">Add</a>
+    </div>
+     
+        <div class="card bg-light mb-3" v-for="(task, index) in tasks">
+            <div class="card-body">
+            <input type="checkbox"class="form-check-input" v-model="task.completed">
+            &nbsp;
+            <span :class="{completed:task.completed}">
+            {{ task.title }}
+           </span>
+             <a class="btn btn-sm btn-outline-secondary" style="float:right" @click="deleteTask(index)">❌</a>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        const { createApp} = Vue
+        createApp({
+            data() {
+                return{
+                    newTask:"",
+                    tasks:[]
+                    
+                }
+            },
+            methods:{
+                addTask() {
+                    if(this.newTask.trim() != ""){
+
+                    
+                    this.tasks.push({title:this.newTask, completed:false})
+                    this.newTask="";}
+
+                },
+                deleteTask(index){
+                    this.tasks.splice(index, 1);
+                }
+        }}).mount('#app')
+    </script>
+    </div>
+</body>
+</html>
